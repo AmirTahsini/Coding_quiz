@@ -18,10 +18,15 @@ var answers = document.querySelector(".answers");
 var result = document.querySelector(".result");
 var scores = document.querySelector(".scores");
 var finalMessage = document.querySelector(".final");
+var form = document.querySelector("form");
 var homeMessage = document.querySelector("#homeMessage");
+var userInitials = document.querySelector("#initials");
+var scoreLink = document.querySelector("#scoreLink");
+var scoresList = document.querySelector(".scoresList");
 var currentIndex = 0;
 var timeLeft;
 var timeInterval;
+var savedScores = JSON.parse(localStorage.getItem("scores")) || [];
 var userScore = 0;
 var questions = [
     {
@@ -43,9 +48,6 @@ var questions = [
     }
 ]
 
-function init() {
-    getScore();
-  }
 
 function startTimer() {
     timeLeft = 50;
@@ -108,21 +110,30 @@ function answerCheck(event) {
 
 function setCorrect() {
     scores.textContent = "You scored " + userScore + " out of 50 points";
-    localStorage.setItem("score", userScore);
+    form.style.display = "block";
   }
 
-  function getScore() {
-    var score;
-    var storedScores = localStorage.getItem("score");
-    if (storedScores === null) {
-      userScore = 0;
-  }
-    else {
-      score = storedScores;  
+function saveScore(event) {
+    event.preventDefault();
+    var data = {
+        initials:userInitials.value,
+        scores:userScore
+    }
+    savedScores.push(data);
+    localStorage.setItem("scores", JSON.stringify(savedScores));
+}
+
+function viewScores() {
+    scoresList.style.display = "block";
+    for(var i = 0; i < savedScores.length; i++) {
+        var newLi = document.createElement("li");
+        newLi.textContent = "User initials: " + savedScores[i].initials + " - Score: " + savedScores[i].scores;
+        scoresList.appendChild(newLi);
     }
 }
 
-init();
 
 
 startButton.addEventListener("click", startQuiz);
+form.addEventListener("submit", saveScore);
+scoreLink.addEventListener("click", viewScores);
