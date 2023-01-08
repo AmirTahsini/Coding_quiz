@@ -1,16 +1,3 @@
-/*
-WHEN I click the start button
-THEN a timer starts and I am presented with a question
-WHEN I answer a question
-THEN I am presented with another question
-WHEN I answer a question incorrectly
-THEN time is subtracted from the clock
-WHEN all questions are answered or the timer reaches 0
-THEN the game is over
-WHEN the game is over
-THEN I can save my initials and score
-*/
-
 var timer = document.querySelector(".timer");
 var startButton = document.querySelector(".button");
 var question = document.querySelector(".question");
@@ -30,22 +17,46 @@ var savedScores = JSON.parse(localStorage.getItem("scores")) || [];
 var userScore = 0;
 var questions = [
     {
-        question: "test question A",
+        question: "Which symbol is used to designate jQuery code?",
         answers: {
-            a: "testA",
-            b: "testB",
-            c: "testC",
+            a: "$",
+            b: "!",
+            c: "/",
         },
-        correct: "testA"
+        correct: "$"
     }, {
-        question: "test question B",
+        question: "Which is a popular css library?",
         answers: {
-            a: "testA",
-            b: "testB",
-            c: "testC",
+            a: "jQuery",
+            b: "React",
+            c: "bootstrap",
         },
-        correct: "testB"
-    }
+        correct: "bootstrap"
+    }, {
+        question: "Which is not a common HTML element?",
+        answers: {
+            a: "function",
+            b: "script",
+            c: "header",
+        },
+        correct: "function"
+    }, {
+        question: "Which git command checks which working branch you're in?",
+        answers: {
+            a: "git commit",
+            b: "git status",
+            c: "git pull",
+        },
+        correct: "git status"
+    }, {
+        question: "Which symbol to you start with to select an id in css?",
+        answers: {
+            a: "?",
+            b: ".",
+            c: "#",
+        },
+        correct: "#"
+    }    
 ]
 
 
